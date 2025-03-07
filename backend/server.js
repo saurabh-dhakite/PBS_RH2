@@ -12,7 +12,6 @@ const app = express()
 // Security middlewares
 app.use(helmet())
 app.use(compression())
-
 app.use(express.json())
 
 app.use((req, res, next) => {
@@ -27,14 +26,13 @@ app.get("/", (req, res) => {
 app.use("/api/workouts", workoutRoutes)
 app.use("/api/user", userRoutes)
 
-mongoose
-	.connect(process.env.MONGO_URI)
-	.then((result) => {
+mongoose.connect(process.env.MONGO_URI)
+.then((result) => {
 		console.log("connected to DB")
-		app.listen(() => {
-			console.log("listening on port 3000")
+		app.listen(process.env.PORT,() => {
+			console.log(`Listening to PORT ${process.env.PORT}`)
 		})
-	})
-	.catch((err) => {
+})
+.catch((err) => {
 		console.log(err)
-	})
+})
