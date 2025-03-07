@@ -35,7 +35,25 @@ const getSingleWorkout = async (req, res) => {
 	res.status(200).json({ workout })
 }
 
-const updateWorkout = async (req, res) => {}
+const updateWorkout = async (req, res) => {
+
+
+	const { title, reps, load } = req.body
+	const { id } = req.params
+
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(400).json({ err: "Invalid ID" })
+	}
+
+	try {
+		const workout = await Workout.findByIdAndUpdate(id,{title,reps,load},{new:true})
+		res.status(200).json({ workout })
+	} catch (err) {
+		console.log(err)
+		res.status(400).json({ err })
+	}
+
+}
 
 const deleteWorkout = async (req, res) => {
 	const { id } = req.params
@@ -44,13 +62,10 @@ const deleteWorkout = async (req, res) => {
 		return res.status(400).json({ err: "Invalid ID" })
 	}
 
-	const workout = await Workout.findByIdAndDelete(id)
 
-	if (!workout) {
-		return res.status(404).json({ err: "No such workout exists" })
-	}
+	await Workout.findOneAndDelete(id)
 
-	res.status(200).json({ workout })
+	res.status(200).json({msg:"Workout Deleted Succesfully"})
 }
 
 module.exports =
