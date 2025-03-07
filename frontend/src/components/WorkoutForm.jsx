@@ -9,6 +9,7 @@ import Alert from "@mui/material/Alert"
 import { useWorkoutsContext } from "../hooks/useWorkoutContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 import { baseURL } from "../url"
+import { use } from "react"
 
 const theme = createTheme({
 	components: {
@@ -69,11 +70,15 @@ function WorkoutForm() {
 			setIsEmpty(true)
 		}
 
+
+		console.log(user)
+
 		const response = await fetch(`${baseURL}/api/workouts`, {
 			method: "POST",
 			body: JSON.stringify(workout),
 			headers: {
 				"Content-Type": "application/json",
+				"Authorization":`Bearer ${user.token}`
 			},
 		})
 
