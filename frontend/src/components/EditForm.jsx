@@ -57,10 +57,7 @@ function EditForm({ workout, setIsEditFormVisible }) {
 	const { user } = useAuthContext()
 
 	const handleSubmit = async (e) => {
-		if (1) {
-			return
-		}
-
+	
 		e.preventDefault()
 		if (!user || !user.token) {
 			setError("You must be logged in first")
@@ -73,7 +70,7 @@ function EditForm({ workout, setIsEditFormVisible }) {
 			setIsEmpty(true)
 			return
 		}
-		console.log(SubmitWorkout)
+
 		const response = await fetch(`${baseURL}/api/workouts/${workout._id}`, {
 			method: "PATCH",
 			body: JSON.stringify(SubmitWorkout),
