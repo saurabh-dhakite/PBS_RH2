@@ -6,7 +6,7 @@ export const useLogout = () => {
 	const { dispatch: WorkoutDispatch } = useWorkoutsContext();
 
 	const logout = () => {
-		localStorage.setItem("user");
+		localStorage.getItem("user");
 
 		dispatch({ type: "LOGOUT" });
 		WorkoutDispatch({ type: "SET_WORKOUTS", payload: null });
