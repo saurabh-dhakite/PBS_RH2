@@ -14,11 +14,13 @@ export const workoutsReducer = (state, action) => {
 			}
 		case "DELETE_WORKOUT":
 			return {
-				workouts: state.workouts.filter((w) => w._id === action.payload._id),
+				workouts: state.workouts.filter((w) => {
+					console.log(w)
+					w?._id === action.payload?._id}),
 			}
 		case "EDIT_WORKOUT":
 			const works = state.workouts.map((w) => {
-				if (w._id === action.payload._id) {
+				if (w?._id === action.payload?._id) {
 					return action.payload
 				} else {
 					return w
